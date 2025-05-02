@@ -1,0 +1,23 @@
+---
+import AuthGuard from "../../../../components/AuthGuard";
+import JornadaForm from "../../../../components/JornadaForm.jsx";
+
+const { slug } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crear Jornada</title>
+  </head>
+  <body>
+    <main>
+      <AuthGuard client:load>
+        <h1>Crear nueva jornada</h1>
+        <JornadaForm torneoSlug={slug} client:load />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

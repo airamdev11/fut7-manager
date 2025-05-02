@@ -1,0 +1,24 @@
+---
+import AuthGuard from "../../../components/AuthGuard.jsx";
+import TablaPosicionesComp from "../../../components/TablaPosiciones.jsx";
+
+
+const { slug } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tabla de Posiciones</title>
+  </head>
+  <body>
+    <main>
+      <AuthGuard client:load>
+        <h1>Tabla de Posiciones</h1>
+        <TablaPosicionesComp torneoSlug={slug} client:load />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

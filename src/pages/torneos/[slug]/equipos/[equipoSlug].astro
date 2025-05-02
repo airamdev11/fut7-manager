@@ -1,0 +1,24 @@
+---
+import AuthGuard from "../../../../components/AuthGuard";
+import JugadoresEquipo from "../../../../components/JugadoresEquipo.jsx";
+import Navbar from "../../../../components/Navbar";
+
+const { slug, equipoSlug } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Jugadores del equipo</title>
+  </head>
+  <body>
+    <main>
+    <Navbar client:load />
+      <AuthGuard client:load>
+        <JugadoresEquipo torneoSlug={slug} equipoSlug={equipoSlug} client:load />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

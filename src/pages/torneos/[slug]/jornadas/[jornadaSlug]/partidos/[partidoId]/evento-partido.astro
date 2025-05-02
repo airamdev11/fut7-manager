@@ -1,0 +1,27 @@
+---
+import AuthGuard from "../../../../../../../components/AuthGuard";
+import CedulaPartido from "../../../../../../../components/CedulaPartido.jsx";
+
+const { slug, jornadaSlug, partidoId } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registrar Goles</title>
+  </head>
+  <body>
+    <main>
+      <AuthGuard client:load>
+        <CedulaPartido
+          torneoSlug={slug}
+          jornadaSlug={jornadaSlug}
+          partidoId={partidoId}
+          client:load
+        />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

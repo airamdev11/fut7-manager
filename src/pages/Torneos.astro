@@ -1,0 +1,20 @@
+---
+import AuthGuard from "../components/AuthGuard";
+import TorneoForm from "../components/TorneoForm.jsx";
+import Navbar from "../components/Navbar.jsx";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Torneos</title>
+  </head>
+  <body>
+    <main>
+      <Navbar client:load />
+        <AuthGuard client:load>
+            <TorneoForm client:load />
+        </AuthGuard>
+    </main>
+  </body>
+</html>

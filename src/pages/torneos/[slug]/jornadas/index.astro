@@ -1,0 +1,26 @@
+---
+import AuthGuard from "../../../../components/AuthGuard";
+import JornadasList from "../../../../components/JornadasList.jsx";
+
+const { slug } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Jornadas</title>
+  </head>
+  <body>
+    <main>
+      <AuthGuard client:load>
+        <h1>Jornadas</h1>
+        <a href={`/torneos/${slug}/jornadas/nueva`}>
+          <button>Crear nueva jornada</button>
+        </a>
+        <JornadasList torneoSlug={slug} client:load />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

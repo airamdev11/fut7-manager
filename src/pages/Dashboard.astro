@@ -1,0 +1,23 @@
+---
+import LogoutButton from "../components/LogoutButton.jsx";
+import AuthGuard from "../components/AuthGuard.jsx";
+import Navbar from "../components/Navbar.jsx";
+
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <main>
+      <Navbar client:load />
+      <AuthGuard client:load>
+        <h1>Bienvenido al panel de administración</h1>
+        <p>Solo deberías ver esto si estás autenticado.</p>
+        <LogoutButton client:load/>
+      </AuthGuard>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+import AuthGuard from "../../../../../../components/AuthGuard.jsx";
+import EditarPartidoForm from "../../../../../../components/EditarPartidoForm.jsx";
+
+const { slug, jornadaSlug, partidoId } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Editar Partido</title>
+  </head>
+  <body>
+    <main>
+      <AuthGuard client:load>
+        <h1>Editar Partido</h1>
+        <EditarPartidoForm
+          torneoSlug={slug}
+          jornadaSlug={jornadaSlug}
+          partidoId={partidoId}
+          client:load
+        />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

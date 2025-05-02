@@ -1,0 +1,25 @@
+---
+import AuthGuard from "../../components/AuthGuard";
+import TorneoDetalle from "../../components/TorneoDetalle.jsx";
+import Navbar from "../../components/Navbar.jsx";
+
+const { slug } = Astro.params;
+
+
+export const prerender = false; // 👈 esta línea activa SSR
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detalles del Torneo</title>
+  </head>
+  <body>
+    <main>
+        <Navbar client:load />
+        <AuthGuard client:load>
+            <TorneoDetalle torneoId={slug} client:load />
+        </AuthGuard>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+---
+import AuthGuard from "../../../components/AuthGuard";
+import TablaGoleadores from "../../../components/TablaGoleadores.jsx";
+
+const { slug } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tabla de Goleadores</title>
+  </head>
+  <body>
+    <main>
+      <AuthGuard client:load>
+        <h1>Tabla de Goleadores</h1>
+        <TablaGoleadores torneoSlug={slug} client:load />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

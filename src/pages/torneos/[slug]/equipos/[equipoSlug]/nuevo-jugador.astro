@@ -1,0 +1,24 @@
+---
+import AuthGuard from "../../../../../components/AuthGuard";
+import JugadorForm from "../../../../../components/JugadorForm.jsx";
+import Navbar from "../../../../../components/Navbar.jsx";
+
+const { slug, equipoSlug } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Agregar Jugador</title>
+  </head>
+  <body>
+    <main>
+    <Navbar />
+      <AuthGuard client:load>
+        <JugadorForm torneoSlug={slug} equipoSlug={equipoSlug} client:load />
+      </AuthGuard>
+    </main>
+  </body>
+</html>

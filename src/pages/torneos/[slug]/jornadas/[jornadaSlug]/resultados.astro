@@ -1,0 +1,23 @@
+---
+import AuthGuard from "../../../../../components/AuthGuard";
+import ResultadosJornada from "../../../../../components/ResultadosJornada.jsx";
+
+const { slug, jornadaSlug } = Astro.params;
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resultados de la Jornada</title>
+  </head>
+  <body>
+    <main>
+      <AuthGuard client:load>
+        <h1>Resultados de la Jornada</h1>
+        <ResultadosJornada torneoSlug={slug} jornadaSlug={jornadaSlug} client:load />
+      </AuthGuard>
+    </main>
+  </body>
+</html>
