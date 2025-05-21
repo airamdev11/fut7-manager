@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../lib/firebaseConfig";
 import { deleteDoc, doc } from "firebase/firestore";
 
+
 const handleEliminar = async (partidoId) => {
     const confirmado = window.confirm("¿Seguro que quieres eliminar este partido?");
     if (!confirmado) return;
@@ -102,9 +103,11 @@ const PartidosJornada = ({ torneoSlug, jornadaSlug }) => {
 
             <div style={{ marginBottom: "1rem" }}>
                 <a href={`/torneos/${torneoSlug}/jornadas/${jornadaSlug}/nuevo-partido`}>
-                    <button>Agregar partido</button>
+                    <button>Agregar partido manualmente</button>
                 </a>
             </div>
+
+
 
 
 
@@ -133,9 +136,10 @@ const PartidosJornada = ({ torneoSlug, jornadaSlug }) => {
                     </thead>
                     <tbody>
                         {partidos.map((p) => {
-                            const fechaObj = new Date(`${p.fecha}T${p.hora}`);
-                            const dia = fechaObj.toLocaleDateString("es-MX", { day: "numeric", month: "long" });
-                            const hora = fechaObj.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true });
+                            const fechaObj = p.fecha?.toDate ? p.fecha.toDate() : null;
+                            const dia = fechaObj ? fechaObj.toLocaleDateString("es-MX", { day: "numeric", month: "long" }) : "No definido";
+                            const hora = p.hora || "No definida";
+
 
                             return (
                                 <tr key={p.id}>

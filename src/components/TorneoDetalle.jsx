@@ -55,6 +55,10 @@ const TorneoDetalle = ({ torneoId }) => {
       <p>Fin: {torneo.fecha_fin.toDate().toLocaleDateString("es-MX")}</p>
       <p>Estado: {torneo.activo ? "Activo" : "Finalizado"}</p>
 
+      <h3>Equipos participantes</h3>
+      <p>Total de equipos inscritos: <strong>{equipos.length}</strong></p>
+
+
       <div style={{ marginTop: "1rem" }}>
         <a href={`/torneos/${torneo.slug}/jornadas`}>
           <button>Ver Jornadas</button>
@@ -77,6 +81,7 @@ const TorneoDetalle = ({ torneoId }) => {
           </button>
         </a>
       </div>
+
 
 
 

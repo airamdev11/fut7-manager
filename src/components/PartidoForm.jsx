@@ -67,8 +67,8 @@ const PartidoForm = ({ torneoSlug, jornadaSlug }) => {
                 fecha,
                 hora,
                 cancha,
-                goles_equipo_uno: 0,
-                goles_equipo_dos: 0,
+                goles_equipo_uno: null,
+                goles_equipo_dos: null,
                 creado: Timestamp.now()
             });
 

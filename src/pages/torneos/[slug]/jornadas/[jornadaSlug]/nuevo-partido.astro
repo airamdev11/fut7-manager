@@ -1,6 +1,6 @@
 ---
 import AuthGuard from "../../../../../components/AuthGuard";
-import PartidoForm from "../../../../../components/PartidoForm.jsx";
+import PartidoManualForm from "../../../../../components/PartidoManualForm.jsx";
 
 const { slug, jornadaSlug } = Astro.params;
 
@@ -10,13 +10,13 @@ export const prerender = false;
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Nuevo Partido</title>
+    <title>Agregar Partido Manual</title>
   </head>
   <body>
     <main>
       <AuthGuard client:load>
-        <h1>Registrar partido</h1>
-        <PartidoForm torneoSlug={slug} jornadaSlug={jornadaSlug} client:load />
+        <h1>Agregar Partido Manual</h1>
+        <PartidoManualForm torneoSlug={slug} jornadaSlug={jornadaSlug} client:load />
       </AuthGuard>
     </main>
   </body>

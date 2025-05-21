@@ -9,6 +9,7 @@ import {
     getDoc,
     updateDoc
 } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 
 const EditarPartidoForm = ({ torneoSlug, jornadaSlug, partidoId }) => {
     const [partido, setPartido] = useState(null);
@@ -39,7 +40,7 @@ const EditarPartidoForm = ({ torneoSlug, jornadaSlug, partidoId }) => {
                 const partidoDoc = await getDoc(partidoRef);
                 const data = partidoDoc.data();
                 setPartido(data);
-                setFecha(data.fecha);
+                setFecha(data.fecha?.toDate().toISOString().split("T")[0] || "");
                 setHora(data.hora);
                 setCancha(data.cancha);
                 setEquipo1(data.equipo_uno_id);
@@ -69,12 +70,37 @@ const EditarPartidoForm = ({ torneoSlug, jornadaSlug, partidoId }) => {
             return;
         }
 
-        try {
 
+        try {
 
 
             const torneoSnap = await getDocs(query(collection(db, "torneos"), where("slug", "==", torneoSlug)));
             const torneoId = torneoSnap.docs[0].id;
+
+            // Verificar si los equipos ya han jugado
+            const claveActual = [equipo1, equipo2].sort().join("-");
+
+            let yaSeEnfrentaron = false;
+
+            const jornadasSnap = await getDocs(collection(db, "torneos", torneoId, "jornadas"));
+            for (const jornada of jornadasSnap.docs) {
+                const partidosSnap = await getDocs(collection(db, "torneos", torneoId, "jornadas", jornada.id, "partidos"));
+                for (const partido of partidosSnap.docs) {
+                    if (partido.id === partidoId) continue; // evitar compararse con sí mismo
+                    const d = partido.data();
+                    const clave = [d.equipo_uno_id, d.equipo_dos_id].sort().join("-");
+                    if (clave === claveActual) {
+                        yaSeEnfrentaron = true;
+                        break;
+                    }
+                }
+                if (yaSeEnfrentaron) break;
+            }
+
+            if (yaSeEnfrentaron) {
+                alert("Estos equipos ya se han enfrentado en otra jornada.");
+                return;
+            }
 
             const jornadaSnap = await getDocs(
                 query(collection(db, "torneos", torneoId, "jornadas"), where("slug", "==", jornadaSlug))
@@ -84,7 +110,7 @@ const EditarPartidoForm = ({ torneoSlug, jornadaSlug, partidoId }) => {
             const partidoRef = doc(db, "torneos", torneoId, "jornadas", jornadaId, "partidos", partidoId);
 
             await updateDoc(partidoRef, {
-                fecha,
+                fecha: fecha ? Timestamp.fromDate(new Date(`${fecha}T12:00:00`)) : null,
                 hora,
                 cancha,
                 equipo_uno_id: equipo1,
